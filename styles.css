@@ -8,7 +8,8 @@ body{
   font-weight: 500; 
   font-style: normal;
   color: #201f1f;
-  position: absolute; 
-  top: 50px;
-  left: 100px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
 }
