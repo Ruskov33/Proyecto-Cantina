@@ -1,15 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
-body{
-    background-color: #ef5135;
+
+body {
+  background-color: #ef5135;
+  margin: 0;
 }
+
 .title {
   font-family: "Lexend Deca", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500; 
   font-style: normal;
   color: #201f1f;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  height: 100vh;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap; 
 }
