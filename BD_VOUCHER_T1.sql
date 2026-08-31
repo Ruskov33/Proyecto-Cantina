@@ -20,10 +20,10 @@ CREATE TABLE ALUMNOS (
 -- Usamos para definir y referenciar el nombre de la comida, pueden modificarse. En principio serian solo 4
 CREATE TABLE TIPO_VOUCHER (
   id_tipo_voucher INT AUTO_INCREMENT PRIMARY KEY,
-  Nombre_comida VARCHAR(50) NOT NULL,
+  Nombre_comida VARCHAR(50) NOT NULL
 );
 
--- Tabla de asignacion para cada alumno
+-- Tabla de asignacion para cada alumna
 CREATE TABLE ASIGNACION_VOUCHER (
   id_asignacion INT AUTO_INCREMENT PRIMARY KEY,
   id_alumno INT, -- FK
