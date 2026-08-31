@@ -31,8 +31,8 @@ CREATE TABLE ASIGNACION_VOUCHER (
   dia_semana INT NOT NULL,
 
   -- Referencias
-  FOREING KEY (id_alumno) REFERENCES ALUMNOS (NumLegajo),
-  FOREING KEY (id_tipo_vaucher) REFERENCES TIPO_VOUCHER (id_tipo_voucher),
+  FOREIGN KEY (id_alumno) REFERENCES ALUMNOS (NumLegajo),
+  FOREIGN KEY (id_tipo_vaucher) REFERENCES TIPO_VOUCHER (id_tipo_voucher),
   -- No permite que haya un alumno con exactamente el mismo voucher asgiando
   CONSTRAINT uq_asignacion_unica UNIQUE (id_alumno, id_tipo_voucher, dia_semana) 
 );
