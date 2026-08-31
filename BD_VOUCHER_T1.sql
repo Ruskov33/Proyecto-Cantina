@@ -6,7 +6,7 @@ CREATE DATABASE VOUCHER;
 USE VOUCHER;
 --Datos basicos de alumnos
 CREATE TABLE ALUMNOS (
-  NumLegajo INT AUTO_INCREMENT PRIMARY KEY,
+  id_alumno INT AUTO_INCREMENT PRIMARY KEY,
   Codigo CHAR(3) NOT NULL UNIQUE,
   DNI VARCHAR(10) NOT NULL UNIQUE,
   Nombre VARCHAR(100) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE ASIGNACION_VOUCHER (
   dia_semana INT NOT NULL,
 
   -- Referencias
-  FOREIGN KEY (id_alumno) REFERENCES ALUMNOS (NumLegajo),
+  FOREIGN KEY (id_alumno) REFERENCES ALUMNOS (id_alumno),
   FOREIGN KEY (id_tipo_vaucher) REFERENCES TIPO_VOUCHER (id_tipo_voucher),
   -- No permite que haya un alumno con exactamente el mismo voucher asgiando
   CONSTRAINT uq_asignacion_unica UNIQUE (id_alumno, id_tipo_voucher, dia_semana) 
