@@ -8,10 +8,30 @@
 </head>
 <body>
     <img src="Cantina_Logo_sinfondo.png" alt="Logo" class="logo">
-    <h1 class = "title">Bienvenidos/as!</h1>
+
     <div class="buttons">
-        <button>SALIR</button>
-        <button>MANUAL</button>
+        <button class="icon-btn" id="salirBtn" type="button">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>SALIR</span>
+        </button>
+        <button class="icon-btn" id="manualBtn" type="button">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <span>MANUAL</span>
+        </button>
     </div>
+
+    <div class="content">
+        <h1 class="title">Bienvenidos/as!</h1>
+        <button class="start-btn" id="iniciarBtn" type="button">Iniciar</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
