@@ -1,7 +1,7 @@
 
 --Datos basicos de alumnos
 CREATE TABLE ALUMNOS (
-  id_alumno INTEGER AUTOINCREMENT PRIMARY KEY,
+  id_alumno INTEGER PRIMARY KEY,
   Codigo TEXT NOT NULL UNIQUE,
   DNI TEXT NOT NULL UNIQUE,
   Apellido TEXT NOT NULL,
@@ -13,13 +13,13 @@ CREATE TABLE ALUMNOS (
 
 -- Usamos para definir y referenciar el nombre de la comida, pueden modificarse. En principio serian solo 4
 CREATE TABLE TIPO_VOUCHER (
-  id_tipo_voucher INTEGER AUTOINCREMENT PRIMARY KEY,
+  id_tipo_voucher INTEGER PRIMARY KEY,
   Nombre_comida TEXT NOT NULL
 );
 
 -- Tabla de asignacion para cada alumna
 CREATE TABLE ASIGNACION_VOUCHER (
-  id_asignacion INTEGER AUTOINCREMENT PRIMARY KEY,
+  id_asignacion INTEGER PRIMARY KEY,
   id_alumno INTEGER NOT NULL, -- FK
   id_tipo_vaucher INTEGER NOT NULL, -- FK
   dia_semana INTEGER NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE ASIGNACION_VOUCHER (
 
 -- Tabla de chequeos
 CREATE TABLE CONSUMO_VOUCHERS (
-  id_consumo INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  id_consumo INTEGER PRIMARY KEY, 
   id_alumno INTEGER NOT NULL, -- FK
   id_tipo_voucher INTEGER NOT NULL, -- FK
   fecha TEXT NOT NULL, -- Para chequiar
