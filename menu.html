@@ -1,12 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Menu</title>
+    <title>Cantina La 35</title>
 </head>
+
 <body>
-    <img src="Cantina_Logo_sinfondo.png" alt="Logo" class="logo">
+
+    <main class="menu">
+
+        <!-- Botón superior derecho -->
+        <button class="add-btn" type="button">
+            +
+        </button>
+
+        <!-- Sección del código -->
+        <section class="codigo">
+
+            <h1>Código:</h1>
+
+            <div class="codigo-input">
+                <input
+                    type="text"
+                    id="codigo"
+                    maxlength="3"
+                    placeholder="A57"
+                >
+
+                <button type="button" id="buscar-btn">
+                    →
+                </button>
+            </div>
+
+        </section>
+
+        <!-- Separador central -->
+        <div class="separador"></div>
+
+        <!-- Sección de información -->
+        <section class="informacion">
+
+            <h1>Información:</h1>
+
+            <div class="alumno">
+
+                <div class="foto">
+                    <img
+                        src=""
+                        alt="Foto del alumno"
+                        id="foto-alumno"
+                    >
+                </div>
+
+                <div class="datos">
+
+                    <p>
+                        <span>Nombre:</span>
+                        <span id="nombre"></span>
+                    </p>
+
+                    <p>
+                        <span>Apellido:</span>
+                        <span id="apellido"></span>
+                    </p>
+
+                    <p>
+                        <span>DNI:</span>
+                        <span id="dni"></span>
+                    </p>
+
+                    <p>
+                        <span>Curso:</span>
+                        <span id="curso"></span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Barra inferior -->
+    <footer class="barra-inferior">
+
+        <div class="botones-inferiores">
+
+            <button
+                type="button"
+                class="cancelar-btn"
+                id="cancelar-btn"
+            >
+                ×
+            </button>
+
+            <button
+                type="button"
+                class="registro-btn"
+                id="registro-btn"
+            >
+                ☷
+            </button>
+
+        </div>
+
+        <img
+            src="Cantina_Logo_sinfondo.png"
+            alt="Cantina La 35"
+            class="logo"
+        >
+
+    </footer>
+
 </body>
 </html>
