@@ -126,6 +126,18 @@ body {
   background: var(--coral);
 }
 
+/* =========================================================
+   FIX: esta hoja de estilos es compartida con la página
+   "Inicio" (reglas .logo y body de más arriba). Para que no
+   choquen con el header de esta página ("Proyecto"),
+   aislamos todo bajo body.pagina-proyecto.
+   Agregá class="pagina-proyecto" al <body> de este HTML.
+   ========================================================= */
+body.pagina-proyecto {
+  height: auto;
+  overflow: visible;
+}
+
 /* ---------- Header ---------- */
 
 .header {
@@ -148,7 +160,14 @@ body {
   border-radius: 0 0 999px 999px;
 }
 
-.logo {
+.header .logo {
+  /* pisa la .logo absoluta de la página Inicio */
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+  width: auto;
+  height: auto;
   max-width: 320px;
   margin: 44px auto 0;
   text-align: center;
@@ -169,7 +188,12 @@ body {
 
 /* ---------- Content ---------- */
 
-.content {
+main.content {
+  /* pisa el .content absoluto (position/top/left/transform) de la página Inicio */
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
   padding: 56px 8% 80px;
   max-width: 760px;
   margin: 0 auto;
