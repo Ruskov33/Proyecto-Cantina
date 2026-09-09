@@ -1,4 +1,3 @@
-
 --Datos basicos de alumnos
 CREATE TABLE ALUMNOS (
   id_alumno INTEGER PRIMARY KEY,
