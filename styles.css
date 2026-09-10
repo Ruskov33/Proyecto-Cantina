@@ -35,8 +35,8 @@ body.pagina-proyecto {
 .logo {
     position: absolute;
     right: 35px;
-    bottom: 15px;
-    width: 130px;
+    bottom: 10px;
+    width: 100px;
     height: auto;
     z-index: 10;
 }
@@ -538,4 +538,8 @@ main.content {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 28px;
   }
+}
+
+footer {
+    position: relative;
 }
