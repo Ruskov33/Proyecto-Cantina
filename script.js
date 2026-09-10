@@ -22,7 +22,7 @@ salirBtn.addEventListener('click', () => {
 
 //Pasar pagina con el boton de MANUAL
 manualBtn.addEventListener('click', () => {
-    window.location.href = 'manual.html';
+    window.open("manual.txt", "Manual", "width=800,height=600,resizable=yes,scrollbars=yes");
     console.log('MANUAL presionado');
 });
 
