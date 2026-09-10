@@ -58,14 +58,6 @@ def cargar_alumno():
     if(input("Confirmar alta? (s/n): ").lower() == "s"):
         conexion = sqlite3.connect("BD_VOUCHER.db")
         cursor = conexion.cursor()
-        cursor.execute("INSERT INTO TIPO_VOUCHER (Nombre_comida) VALUES (?)",
-                        ("Desayuno",))
-        cursor.execute("INSERT INTO TIPO_VOUCHER (Nombre_comida) VALUES (?)",
-                        ("Almuerzo",))
-        cursor.execute("INSERT INTO TIPO_VOUCHER (Nombre_comida) VALUES (?)",
-                        ("Merienda",))
-        cursor.execute("INSERT INTO TIPO_VOUCHER (Nombre_comida) VALUES (?)",
-                        ("Cena",))
         cursor.execute("INSERT INTO ALUMNOS (codigo, dni, apellido, curso, division, turno, activo) VALUES (?, ?, ?, ?, ?, ?, ?)",
                         (alumno.codigo, alumno.dni, alumno.apellido, alumno.curso, alumno.division, alumno.turno, alumno.activo))
         conexion.commit()
