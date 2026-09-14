@@ -1,1 +1,17 @@
-Aca va a ir el manual
+MANUAL DE USUARIO
+CANTINA LA 35
+
+1. Introducción
+  Cantina La 35 es un proyecto que busca modernizar y simplificar la gestión de los vouchers de comida utilizados por los alumnos. El sistema reemplaza parte del proceso manual por una solución informática que permite organizar la información, reducir errores y agilizar el trabajo de la cantina y la preceptoría.
+
+Su objetivo es facilitar el control de las comidas entregadas y demostrar cómo la tecnología puede mejorar tareas cotidianas de la institución, proporcionando una solución más práctica, organizada y eficiente.
+
+2. Requisitos para utilizar el sistema
+  Requisitos minimos
+
+3. Inicio del sistema
+  Ejecutar el archivo "cantina.exe" con doble click izquierdo, en el menú de inicio, darle al botón de inicio para ejecutar el menú de consultas de alumnos. 
+
+4. Pantalla principal (menu)
+  En el menú aparece a la derecha un apartado para ingresar un código alfanumérico de tres caracteres correspondiente a cada alumno, al ingresar un valor invalido, aparecerá a la derecha el mensaje del error o el motivo por el que el código no puede ser utilizado, en caso de que el código sea valido y pertenezca a un alumno, abajo de el espacio para ingresar los códigos aparecerá una selección con cuatro opciones con las cuatro comidas que ofrece la cantina ('desayuno', 'almuerzo', 'merienda', 'cena') las que estén disponibles para el alumno cuyo código fue ingresado aparecerán resaltadas con un color y podrá canjearse el voucher correspondiente al seleccionar una de las comidas disponibles y darle al botón de enviar a la derecha del código.
+  Al ingresar un alumno, en la sección derecha al apartado de ingreso de datos y canje de voucher aparecerá una seccion con informacion de los alumnos, que contendra la foto que tiene el alumno en la libreta de comunicaciones, su nombre, apellido, DNI, curso y turno. 
