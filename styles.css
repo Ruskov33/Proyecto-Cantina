@@ -543,3 +543,30 @@ main.content {
 footer {
     position: relative;
 }
+
+/* Página Inicio — variante fondo naranja / texto blanco*/
+body.pagina-inicio {
+    background-color: var(--coral);
+}
+
+body.pagina-inicio .title {
+    color: transparent;
+    -webkit-text-stroke: 3px var(--ink);
+}
+
+body.pagina-inicio .start-btn {
+    background-color: var(--white);
+    color: var(--ink);
+    border-color: var(--ink);
+}
+
+body.pagina-inicio .start-btn:hover {
+    background-color: var(--ink);
+    color: var(--white);
+    border-color: var(--white);
+}
+
+body.pagina-inicio .icon-btn {
+    background-color: var(--white);
+    border-color: var(--ink);
+}
