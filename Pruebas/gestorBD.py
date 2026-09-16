@@ -5,7 +5,9 @@ def menu():
         print("\nMENU\n")
         print("1. Cargar alumno")
         print("2. Consultar alumnos")
-        print("3. Salir")
+        print("3. Asignar voucher")
+        print("4. Consumir voucher")
+        print("5. Salir")
 
 def elegir():
     while True:
@@ -68,7 +70,7 @@ def cargar_alumno():
 
 def consultar_alumno():
     dni = input("Ingrese el DNI del alumno a consultar: ")
-    conexion = sqlite3.connect("BD_VOUCHER_T1.db")  
+    conexion = sqlite3.connect("BD_VOUCHER.db")  
     cursor = conexion.cursor()
     cursor.execute("SELECT codigo, dni, nombre, apellido, curso, division, turno FROM ALUMNOS WHERE dni = ?", (dni,))
     alumno = cursor.fetchone()
@@ -83,7 +85,7 @@ def consultar_alumno():
         print(f"División: {alumno[5]}")
         print(f"Turno: {alumno[6]}")
 
-        cursor.execute("SELECT id_tipo_voucher, dia_semana FROM ASIGNACION_VOUCHER WHERE id_alumno = (SELECT id_alumno FROM ALUMNOS WHERE dni = ?)", (dni,))
+        cursor.execute("SELECT id_comida, id_dia FROM ASIGNACION_VOUCHER WHERE id_alumno = (SELECT id_alumno FROM ALUMNOS WHERE dni = ?)", (dni,))
         vouchers = cursor.fetchall()
         if vouchers:
             print("\nVouchers asignados:")
@@ -97,7 +99,7 @@ def consultar_alumno():
 
 def asignar_voucher():
     dni = input("Ingrese el DNI del alumno al que desea asignar un voucher: ")
-    conexion = sqlite3.connect("BD_VOUCHER_T1.db")
+    conexion = sqlite3.connect("BD_VOUCHER.db")
     cursor = conexion.cursor()
     cursor.execute("SELECT codigo, dni, nombre, apellido, curso, division, turno FROM ALUMNOS WHERE dni = ?", (dni,))
     alumno = cursor.fetchone()
@@ -112,11 +114,11 @@ def asignar_voucher():
         print(f"División: {alumno[5]}")
         print(f"Turno: {alumno[6]}")
 
-        tipo_voucher = input("Ingrese el tipo de voucher a asignar: ")
-        dia_semana = input("Ingrese el día de la semana para el voucher: ")
+        id_comida = input("Ingrese la comida a asignar (1: Desayuno, 2: Almuerzo, 3: Merienda, 4: Cena): ")
+        id_dia = input("Ingrese el día de la semana para el voucher (1-5): ")
         cursor.execute("SELECT id_alumno FROM ALUMNOS WHERE dni = ?", (dni,))
         id_alumno = cursor.fetchone()[0]
-        cursor.execute("INSERT INTO ASIGNACION_VOUCHER (id_alumno, id_tipo_voucher, dia_semana) VALUES (?, ?, ?)", (id_alumno, tipo_voucher, dia_semana))
+        cursor.execute("INSERT INTO ASIGNACION_VOUCHER (id_alumno, id_comida, id_dia) VALUES (?, ?, ?)", (id_alumno, id_comida, id_dia))
         conexion.commit()
         conexion.close()
         print("Voucher asignado correctamente.")
@@ -124,20 +126,36 @@ def asignar_voucher():
         print("Alumno no encontrado.")
 
 def consumir_voucher():
-    codigo = input("Ingrese el código del alumno que desea consumir un voucher: ")
-    dia_actual = input("Ingrese el día de la semana actual (Lunes, Martes, Miércoles, Jueves, Viernes): ")
-    comida = input("Ingrese la comida que desea consumir (Desayuno, Almuerzo, Merienda, Cena): ")
-    conexion = sqlite3.connect("BD_VOUCHER_T1.db")
+    cod = input("Ingrese el código del alumno que desea consumir un voucher: ")
+    id_dia = input("Ingrese el día de la semana actual (1-5): ")
+    id_comida = input("Ingrese la comida que desea consumir (1: Desayuno, 2: Almuerzo, 3: Merienda, 4: Cena): ")
+    fecha = input("Ingrese la fecha de hoy: ")
+
+    conexion = sqlite3.connect("BD_VOUCHER.db")
     cursor = conexion.cursor()
-    cursor.execute("SELECT tipo_voucher, dia_semana FROM ASIGNACION_VOUCHER WHERE id_alumno = (SELECT id_alumno FROM ALUMNOS WHERE codigo = ?)", (codigo,))
-    voucher = cursor.fetchall()
-    for v in voucher:
-        if(v[0] == comida and v[1] == dia_actual):
-            cursor.execute("INSERT INTO CONSUMO_VOUCHER (id_alumno, id_asignacion_voucher, fecha) VALUES ((SELECT id_alumno FROM ALUMNOS WHERE codigo = ?), (SELECT id_asignacion_voucher FROM ASIGNACION_VOUCHER WHERE id_alumno = (SELECT id_alumno FROM ALUMNOS WHERE codigo = ?) AND tipo_voucher = ? AND dia_semana = ?), ?)", (codigo, codigo, comida, dia_actual, dia_actual))
-            conexion.commit()
-            print("Voucher consumido correctamente.")
+
+    cursor.execute(
+        "SELECT id_asignacion FROM ASIGNACION_VOUCHERS "
+        "WHERE id_alumno = (SELECT id_alumno FROM ALUMNOS WHERE cod = ?) "
+        "AND id_comida = ? AND id_dia = ?",
+        (cod, id_comida, id_dia)
+    )
+
+    voucher = cursor.fetchone()
+
+    if voucher:
+        id_asignacion = voucher[0]
+
+        cursor.execute(
+            "INSERT INTO CONSUMO_VOUCHERS (id_asignacion, fecha) VALUES (?, ?)",
+            (id_asignacion, fecha)
+        )
+
+        conexion.commit()
+        print("Voucher consumido correctamente.")
+
     else:
-        print("Alumno no encontrado.")
+        print("No se encontró un voucher asignado para ese alumno, día y comida.")
     conexion.close()
 
 while True:
