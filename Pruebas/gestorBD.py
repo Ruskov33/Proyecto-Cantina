@@ -9,7 +9,8 @@ def menu():
         print("4. Consumir voucher")
         print("5. Setear comidas")
         print("6. Setear dias")
-        print("7. Salir")
+        print("7. Mostrar voucher consumidos")
+        print("8. Salir")
 
 def elegir():
     while True:
@@ -62,7 +63,7 @@ def cargar_alumno():
     if(input("Confirmar alta? (s/n): ").lower() == "s"):
         conexion = sqlite3.connect("BD_VOUCHER.db")
         cursor = conexion.cursor()
-        cursor.execute("INSERT INTO ALUMNOS (codigo, dni, nombre, apellido, curso, division, turno, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        cursor.execute("INSERT INTO ALUMNOS (cod, dni, nombre, apellido, curso, division, turno, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                         (alumno.codigo, alumno.dni, alumno.nombre, alumno.apellido, alumno.curso, alumno.division, alumno.turno, alumno.activo))
         conexion.commit()
         conexion.close()
@@ -74,7 +75,7 @@ def consultar_alumno():
     dni = input("Ingrese el DNI del alumno a consultar: ")
     conexion = sqlite3.connect("BD_VOUCHER.db")  
     cursor = conexion.cursor()
-    cursor.execute("SELECT codigo, dni, nombre, apellido, curso, division, turno FROM ALUMNOS WHERE dni = ?", (dni,))
+    cursor.execute("SELECT cod, dni, nombre, apellido, curso, division, turno FROM ALUMNOS WHERE dni = ?", (dni,))
     alumno = cursor.fetchone()
 
     if alumno:
@@ -87,7 +88,7 @@ def consultar_alumno():
         print(f"División: {alumno[5]}")
         print(f"Turno: {alumno[6]}")
 
-        cursor.execute("SELECT id_comida, id_dia FROM ASIGNACION_VOUCHER WHERE id_alumno = (SELECT id_alumno FROM ALUMNOS WHERE dni = ?)", (dni,))
+        cursor.execute("SELECT id_comida, id_dia FROM ASIGNACION_VOUCHERS WHERE id_alumno = (SELECT id_alumno FROM ALUMNOS WHERE dni = ?)", (dni,))
         vouchers = cursor.fetchall()
         if vouchers:
             print("\nVouchers asignados:")
@@ -103,7 +104,7 @@ def asignar_voucher():
     dni = input("Ingrese el DNI del alumno al que desea asignar un voucher: ")
     conexion = sqlite3.connect("BD_VOUCHER.db")
     cursor = conexion.cursor()
-    cursor.execute("SELECT codigo, dni, nombre, apellido, curso, division, turno FROM ALUMNOS WHERE dni = ?", (dni,))
+    cursor.execute("SELECT cod, dni, nombre, apellido, curso, division, turno FROM ALUMNOS WHERE dni = ?", (dni,))
     alumno = cursor.fetchone()
 
     if alumno:
@@ -120,7 +121,7 @@ def asignar_voucher():
         id_dia = input("Ingrese el día de la semana para el voucher (1-5): ")
         cursor.execute("SELECT id_alumno FROM ALUMNOS WHERE dni = ?", (dni,))
         id_alumno = cursor.fetchone()[0]
-        cursor.execute("INSERT INTO ASIGNACION_VOUCHER (id_alumno, id_comida, id_dia) VALUES (?, ?, ?)", (id_alumno, id_comida, id_dia))
+        cursor.execute("INSERT INTO ASIGNACION_VOUCHERS (id_alumno, id_comida, id_dia) VALUES (?, ?, ?)", (id_alumno, id_comida, id_dia))
         conexion.commit()
         conexion.close()
         print("Voucher asignado correctamente.")
@@ -175,6 +176,81 @@ def setear_dias():
     conexion.commit()
     conexion.close()
 
+def mostrar_voucher():
+    fecha = input("Ingresa la fecha para mostrar registro de vouchers: ")
+    conexion = sqlite3.connect("BD_VOUCHER.db")
+    cursor = conexion.cursor()
+    
+    cursor.execute("""
+        SELECT cod, dni, nombre, apellido FROM ALUMNOS 
+        WHERE id_alumno IN (
+            SELECT id_alumno FROM ASIGNACION_VOUCHERS 
+            WHERE id_asignacion IN (SELECT id_asignacion FROM CONSUMO_VOUCHERS WHERE fecha = ?)
+        )
+    """, (fecha,)) 
+    alumnos = cursor.fetchall()
+    
+    cursor.execute("""
+        SELECT nombre_comida FROM COMIDA_VOUCHERS 
+        WHERE id_comida IN (
+            SELECT id_comida FROM ASIGNACION_VOUCHERS 
+            WHERE id_asignacion IN (SELECT id_asignacion FROM CONSUMO_VOUCHERS WHERE fecha = ?)
+        )
+    """, (fecha,))
+    comidas = cursor.fetchall()
+    
+    cursor.execute("""
+        SELECT nombre_dia FROM DIA_VOUCHERS 
+        WHERE id_dia IN (
+            SELECT id_dia FROM ASIGNACION_VOUCHERS 
+            WHERE id_asignacion IN (SELECT id_asignacion FROM CONSUMO_VOUCHERS WHERE fecha = ?)
+        )
+    """, (fecha,))
+    dias = cursor.fetchall()
+
+def mostrar_voucher():
+    fecha = input("Ingresa la fecha para mostrar registro de vouchers: ")
+    conexion = sqlite3.connect("BD_VOUCHER.db")
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT cod, dni, nombre, apellido FROM ALUMNOS 
+        WHERE id_alumno IN (
+            SELECT id_alumno FROM ASIGNACION_VOUCHERS 
+            WHERE id_asignacion IN (SELECT id_asignacion FROM CONSUMO_VOUCHERS WHERE fecha = ?)
+        )
+    """, (fecha,)) 
+    alumnos = cursor.fetchall()
+
+    cursor.execute("""
+        SELECT nombre_comida FROM COMIDA_VOUCHERS 
+        WHERE id_comida IN (
+            SELECT id_comida FROM ASIGNACION_VOUCHERS 
+            WHERE id_asignacion IN (SELECT id_asignacion FROM CONSUMO_VOUCHERS WHERE fecha = ?)
+        )
+    """, (fecha,))
+    comidas = cursor.fetchall()
+    
+    cursor.execute("""
+        SELECT nombre_dia FROM DIA_VOUCHERS 
+        WHERE id_dia IN (
+            SELECT id_dia FROM ASIGNACION_VOUCHERS 
+            WHERE id_asignacion IN (SELECT id_asignacion FROM CONSUMO_VOUCHERS WHERE fecha = ?)
+        )
+    """, (fecha,))
+    dias = cursor.fetchall()
+
+    if alumnos:
+        print("\nLISTADO DE VOUCHERS")
+
+        for alumno, comida, dia in zip(alumnos, comidas, dias):
+            print(f"Cod {alumno[0]} Dni: {alumno[1]} Nombre y Apellido: {alumno[2]} {alumno[3]} | Comida: {comida[0]} | Día: {dia[0]}")
+        
+
+    else:
+        print("No se han registrado consumos en esa fecha")
+    conexion.close()
+
 while True:
 
     menu()
@@ -200,6 +276,8 @@ while True:
         case 6:
             setear_dias()
         case 7:
+            mostrar_voucher()
+        case 8:
             print("UwU")
             sys.exit()
         case _:
