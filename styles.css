@@ -1,7 +1,9 @@
+/*Carga de tipografias*/
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
 
+/*Paleta de colores*/
 :root {
   --coral: #f15a2c;
   --coral-dark: #d94f36;
@@ -11,6 +13,7 @@
   --gray-light: #f5f5f5;
 }
 
+/* Incluye el padding y el border en el ancho y alto total de los elementos */
 * {
     box-sizing: border-box;
 }
@@ -344,7 +347,6 @@ main.content {
     line-height: 1;
     cursor: pointer;
     display: flex;
-    align-items: center;
     justify-content: center;
     z-index: 10;
 }
@@ -515,7 +517,16 @@ main.content {
     font-size: 3.2rem !important;
 }
 
-/* ---------- Responsive Media Queries ---------- */
+.registro-btn .icon {
+    width: 50px;
+    height: 50px;
+}
+
+.cancelar-btn .icon {
+    width: 50px;
+    height: 50px;
+}
+
 @media (max-width: 560px) {
   .logo__title {
     font-size: 2.4rem;
