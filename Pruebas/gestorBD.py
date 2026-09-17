@@ -161,7 +161,7 @@ def consumir_voucher():
     conexion.close()
 
 def setear_comidas():
-    conexion = sqlite3.connect("BD_VOUCHER.bd")
+    conexion = sqlite3.connect("BD_VOUCHER.db")
     cursor = conexion.cursor()
     cursor.execute("INSERT INTO COMIDA_VOUCHERS (nombre_comida) VALUES (?), (?), (?), (?)", ("Desayuno", "Almuerzo", "Merienda", "Cena"))
     conexion.commit()
@@ -169,7 +169,7 @@ def setear_comidas():
 
 
 def setear_dias():
-    conexion = sqlite3.connect("BD_VOUCHER.bd")
+    conexion = sqlite3.connect("BD_VOUCHER.db")
     cursor = conexion.cursor()
     cursor.execute("INSERT INTO DIA_VOUCHERS (nombre_dia) VALUES (?), (?), (?), (?), (?)", ("Lunes", "Martes", "Miercoles", "Jueves", "Viernes"))
     conexion.commit()
