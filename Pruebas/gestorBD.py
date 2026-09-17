@@ -7,7 +7,9 @@ def menu():
         print("2. Consultar alumnos")
         print("3. Asignar voucher")
         print("4. Consumir voucher")
-        print("5. Salir")
+        print("5. Setear comidas")
+        print("6. Setear dias")
+        print("7. Salir")
 
 def elegir():
     while True:
@@ -158,6 +160,21 @@ def consumir_voucher():
         print("No se encontró un voucher asignado para ese alumno, día y comida.")
     conexion.close()
 
+def setear_comidas():
+    conexion = sqlite3.connect("BD_VOUCHER.bd")
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO COMIDA_VOUCHERS (nombre_comida) VALUES (?), (?), (?), (?)", ("Desayuno", "Almuerzo", "Merienda", "Cena"))
+    conexion.commit()
+    conexion.close()
+
+
+def setear_dias():
+    conexion = sqlite3.connect("BD_VOUCHER.bd")
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO DIA_VOUCHERS (nombre_dia) VALUES (?), (?), (?), (?), (?)", ("Lunes", "Martes", "Miercoles", "Jueves", "Viernes"))
+    conexion.commit()
+    conexion.close()
+
 while True:
 
     menu()
@@ -179,11 +196,22 @@ while True:
             consumir_voucher()
 
         case 5:
+            setear_comidas()
+        case 6:
+            setear_dias()
+        case 7:
             print("UwU")
             sys.exit()
-
         case _:
               print("Opcion invalida pelele\n")
+
+
+
+
+
+
+
+
 
 
 
